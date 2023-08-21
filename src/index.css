@@ -1,13 +1,110 @@
-body {
-  margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+:root {
+  --foreground-rgb: 255, 255, 255;
+  --background-start-rgb: 0, 0, 0;
+  --background-end-rgb: 0, 0, 0;
+
+  --primary-color:#023189;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+
+html{
+  font-family: 'Inter', sans-serif;
+}
+body {
+  color: rgb(var(--background-end-rgb)); 
+  background: rgb(var(--foreground-rgb));
+  font-family: 'Inter', sans-serif;
+}
+
+.form-control, .form-select, input[type=file]{
+  @apply text-gray-600 text-sm bg-secondary w-full px-4 py-3 rounded-3xl focus:outline-primaryFade focus:outline-1;
+}
+.form-file-upload{
+  position: relative;
+}
+input[type=file] {
+  position: relative;
+  padding-left: 60px;
+}
+input[type=file]::file-selector-button {
+  content: "";
+  position: absolute;
+  width: 50px;
+  height: 50px;
+ color: transparent;
+  background-image: url(./assets/img/upload-img-icon.png), linear-gradient(to right, #e7ebee, #e7ebee);
+  background-repeat: no-repeat;
+  background-position: center;
+  top: -2px;
+  left: 0;
+  outline: none;
+  border: none;
+}
+
+/* input[type=file]::file-selector-button::before{
+  content: "";
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  background-color: #000;
+  top: 0;
+  left: 0;
+} */
+/* 
+input[type=file]::file-selector-button:hover {
+  background: #0d45a5;
+} */
+
+.btn-primary {
+  @apply bg-primary px-4 py-3 rounded-3xl text-white font-semibold w-full transition ease-in hover:bg-primaryFade;
+}
+.link{
+  @apply text-primary font-bold;
+}
+.google-btn{
+  @apply flex gap-3 items-center justify-center w-full border border-gray-500 rounded-3xl px-4 py-2 cursor-pointer;
+}
+
+.login-img{
+  width: 100%;
+  height: 100vh;
+  object-fit: cover;
+  object-position: center;
+}
+
+/* welcome */
+.vector-bg{
+ position: relative;
+}
+.vector-bg::before{
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-image: url(./assets/img/bg-vector.webp);
+  background-size: cover;
+  background-position: center;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  background-color: var(--primary-color);
+}
+.vector-bg.bl::before{
+  filter: blur(2px);
+}
+.card-wrap{
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2%;
+}
+.card{
+  @apply lg:w-[25%] md:w-[48.5%] sm:w-[48.5%] w-[48.5%];
+  display: block;
+  height: auto;
+  margin-bottom: 2%;
 }
