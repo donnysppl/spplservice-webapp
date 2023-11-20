@@ -78,45 +78,6 @@ export default function ForgotPassword() {
         }
     }
     return (
-        //   <main className="flex min-h-screen flex-col items-center justify-between p-8">
-        //       <div className="login-part border border-gray-600 w-full rounded-lg p-8">
-        //           Forgot Password
-
-        //           {
-        //               otpSubmit ? null :
-        //                   <form onSubmit={forgotPassBeforeOtp}>
-
-        //                       <div className="mb-3">
-        //                           <label htmlFor="email" className="form-label">Email</label>
-        //                           <input type="email" className="form-control" name='email' required onChange={(e) => setforgetpassInp({ ...forgetpassInp, email: e.target.value })} />
-        //                       </div>
-        //                       <div className="mb-3">
-        //                           <label htmlFor="password" className="form-label">New Password</label>
-        //                           <input type="text" required onChange={(e) => setforgetpassInp({ ...forgetpassInp, password: e.target.value })} className="form-control" name='password' />
-        //                       </div>
-
-        //                       <button className="btn">Submit</button>
-
-        //                   </form>
-        //           }
-
-        //           {
-        //               otpSubmit ?
-        //                   <form onSubmit={forgotPassAfterOtp}>
-        //                       <div className="">A OTP is send to {forgetpassInp.email}</div>
-        //                       <div className="mb-3 mt-3">
-        //                           <label htmlFor="code" className="form-label">OTP</label>
-        //                           <input type="number" className="form-control" name='code' onChange={(e) => setforgetpassInp({ ...forgetpassInp, code: e.target.value })} />
-        //                       </div>
-
-        //                       <button className="btn">Submit OTP</button>
-        //                   </form>
-        //                   : null
-        //           }
-
-
-        //       </div>
-        //   </main>
 
         <div className="flex min-h-screen">
             <div className="2xl:w-2/3 xl:w-2/3 lg:w-2/3 min-h-screen hidden md:block">
@@ -163,7 +124,7 @@ export default function ForgotPassword() {
 
                     <div className="footer-login-form border-t border-gray-300 p-4">
                         <div className="text-center text-sm">
-                            Don't have an account? <Link className="link" to="/signup">Sign UP</Link>
+                            Don't have an account? <a className="link" href="/signup">Sign UP</a>
                         </div>
                     </div>
                 </div>

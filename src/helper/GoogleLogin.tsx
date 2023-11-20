@@ -2,7 +2,6 @@ import jwtDecode from "jwt-decode";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 
-
 declare global {
     interface Window {
         google: any;
@@ -22,9 +21,8 @@ interface DecodeGooGle {
 export default function GoogleLogin() {
 
     const handleCallbackResponse = async (res: GoogleRes) => {
-        console.log(res.credential);
+
         const decode: DecodeGooGle = jwtDecode(res.credential)
-        console.log(decode)
         if (decode) {
             localStorage.setItem('userimg', decode.picture);
         }
@@ -37,7 +35,6 @@ export default function GoogleLogin() {
             body: JSON.stringify(decode)
         }).then(res => res.json())
             .then(res => {
-                console.log(res.data);
                 if (res.data.status === 200) {
                     localStorage.setItem('usertoken', res.data.token);
                     toast.success(res.data.message);
@@ -72,7 +69,7 @@ export default function GoogleLogin() {
         };
 
 
-    }, [])
+    }, [window.location])
 
     return (
         <div className="w-full mx-auto" id="signInDiv" />

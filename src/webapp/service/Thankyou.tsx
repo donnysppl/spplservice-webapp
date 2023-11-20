@@ -14,7 +14,7 @@ export default function Thankyou({ invoicety, warrty, issueimgty }: ThankuServPr
     }
   }, [invoicety, warrty, issueimgty])
 
-  console.log({ invoicety, warrty, issueimgty })
+  // console.log({ invoicety, warrty, issueimgty })
 
   if (show) {
     setTimeout(window.location.href  = '/welcome', 5000)

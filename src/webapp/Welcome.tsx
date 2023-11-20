@@ -13,19 +13,16 @@ export default function Welcome() {
 
   useEffect(() => {
     // const userData = window.localStorage.getItem('usertoken');
-    console.log(userData)
-
+   
     const token = userData || '';
     const decoded = jwt_decode(token as string);
     setuserToken(decoded as userTokenData);
   }, [])
 
-
   const onLogout = () => {
     window.localStorage.clear();
-    window.location.href="/";
-  }
-
+    window.location.href = "/";
+}
 
   return (
     <>
@@ -33,7 +30,6 @@ export default function Welcome() {
         !userToken ? 'Loading...' :
           <>
             <div className='container mx-auto'>
-
 
               <div className=" text-white vector-bg h-[120px] p-5 flex justify-between items-center">
                 <div className='text-2xl font-light leading-7'>
@@ -64,28 +60,37 @@ export default function Welcome() {
 
                   <Link className="px-8 py-10 bg-secondary rounded-xl card" to={`/welcome/service/${userToken && userToken.id}`}>
                     <div className="card-img mb-2">
-                      <img src={require('../assets/img/service.webp')} className='w-[150px] mx-auto object-contain object-center' alt="service" />
+                      <img src={require('../assets/img/service.webp')} className='w-[150px] h-[150px] mx-auto object-contain object-center' alt="service" />
                     </div>
-                    <div className="card-text text-center text-lg text-gray-900">
-                      Services
+                    <div className="card-text text-center text-base text-gray-900">
+                    Register a Complaint
                     </div>
                   </Link>
 
                   <Link className="px-8 py-10 bg-primary rounded-xl card" to={`/welcome/installation/${userToken && userToken.id}`}>
                     <div className="card-img mb-2">
-                      <img src={require('../assets/img/installationa.webp')} className='w-[150px] mx-auto object-contain object-center' alt="service" />
+                      <img src={require('../assets/img/installationa.webp')} className='w-[150px] h-[150px] mx-auto object-contain object-center' alt="service" />
                     </div>
-                    <div className="card-text text-center text-lg text-gray-200">
+                    <div className="card-text text-center text-base text-gray-200">
                       Installation
                     </div>
                   </Link>
 
                   <Link className="px-8 py-10 bg-primary rounded-xl card" to='https://shopsppl.in/'>
                     <div className="card-img mb-2">
-                      <img src={require('../assets/img/service.webp')} className='w-[150px] mx-auto object-contain object-center' alt="service" />
+                      <img src={require('../assets/img/info.webp')} className='w-[150px] h-[150px] mx-auto object-contain object-center' alt="service" />
                     </div>
-                    <div className="card-text text-center text-lg text-gray-200">
+                    <div className="card-text text-center text-base text-gray-200">
                       Information
+                    </div>
+                  </Link>
+
+                  <Link className="px-8 py-10 bg-secondary rounded-xl card" to={`/welcome/request/list/${userToken && userToken.id}`}>
+                    <div className="card-img mb-2">
+                      <img src={require('../assets/img/list.webp')} className='w-[150px] h-[150px] mx-auto object-contain object-center' alt="service" />
+                    </div>
+                    <div className="card-text text-center text-base text-gray-900">
+                      Your Complaints
                     </div>
                   </Link>
 

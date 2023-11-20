@@ -5,7 +5,6 @@ interface ProtectedRouteProps {
   auth: boolean;
 }
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ auth }) => {
-  console.log(auth);
   return auth ? <Outlet /> : <Navigate to={'/'} />;
 };
 

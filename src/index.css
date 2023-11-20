@@ -9,6 +9,7 @@
   --background-end-rgb: 0, 0, 0;
 
   --primary-color:#023189;
+  --second-color:#e7ebee;
 }
 
 
@@ -103,8 +104,23 @@ input[type=file]::file-selector-button:hover {
   gap: 2%;
 }
 .card{
-  @apply lg:w-[25%] md:w-[48.5%] sm:w-[48.5%] w-[48.5%];
+  @apply lg:w-[23.5%] md:w-[48.5%] sm:w-[48.5%] w-[48.5%];
   display: block;
   height: auto;
   margin-bottom: 2%;
+}
+.welcome-bg-abstarct{
+  position: relative;
+  overflow: hidden;
+}
+.welcome-bg-abstarct::before{
+  content: "";
+  position: absolute;
+  width: 160%;
+  height: 100%;
+  background-color: var(--second-color);
+  border-top-left-radius: 50%;
+  border-top-right-radius: 50%;
+  top: 35%;
+  z-index: -1;
 }

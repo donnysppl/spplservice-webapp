@@ -85,7 +85,7 @@ export default function AddService() {
   };
 
   const handleModelChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value)
+    // console.log(e.target.value)
     setmodel(e.target.value)
   }
 
@@ -95,7 +95,7 @@ export default function AddService() {
         method: 'GET',
       }).then(res => res.json())
         .then(res => {
-          console.log(res.result);
+          // console.log(res.result);
           if (res.status === 200) {
             setallProdData(res.result);
           }
@@ -141,7 +141,7 @@ export default function AddService() {
       body: JSON.stringify(data)
     }).then(res => res.json())
       .then(res => {
-        console.log(res);
+        // console.log(res);
         if (res.status === 200) {
           toast.success(res.message);
           setimgUpload(true);
@@ -165,10 +165,13 @@ export default function AddService() {
 
     await fetch(`${process.env.REACT_APP_BACKENDURL}/users/invoiceupdate/${submitServId}`, {
       method: 'POST',
+      headers: {
+        'Access-Control-Allow-Origin': `${process.env.REACT_APP_BACKENDURL}`
+      },
       body: formdata
     }).then(res => res.json())
       .then(res => {
-        console.log(res);
+        // console.log(res);
         if (res.status === 200) {
           toast.success(res.message);
           setinvoicety(true);
@@ -189,10 +192,13 @@ export default function AddService() {
 
     await fetch(`${process.env.REACT_APP_BACKENDURL}/users/warrantyupdate/${submitServId}`, {
       method: 'POST',
+      headers: {
+        'Access-Control-Allow-Origin': `${process.env.REACT_APP_BACKENDURL}`
+      },
       body: formdata
     }).then(res => res.json())
       .then(res => {
-        console.log(res);
+        // console.log(res);
         if (res.status === 200) {
           toast.success(res.message);
           setwarrty(true);
@@ -217,10 +223,13 @@ export default function AddService() {
 
     await fetch(`${process.env.REACT_APP_BACKENDURL}/users/issueimgupdate/${submitServId}`, {
       method: 'POST',
+      headers: {
+        'Access-Control-Allow-Origin': `${process.env.REACT_APP_BACKENDURL}`
+      },
       body: formdata
     }).then(res => res.json())
       .then(res => {
-        console.log(res);
+        // console.log(res);
         if (res.status === 200) {
           toast.success(res.message);
           setissueimgty(true);
@@ -250,173 +259,173 @@ export default function AddService() {
         </div>
 
         <div className='p-5'>
-            {
-              imgUpload ? null :
-                <form className="md:w-[50%] w-full mx-auto" onSubmit={onserviceSubmit} >
+          {
+            imgUpload ? null :
+              <form className="md:w-[50%] w-full mx-auto" onSubmit={onserviceSubmit} >
 
-                  <div className="p-3">
-                    <div className="text-sm mb-3">Enter some data about your product</div>
+                <div className="p-3">
+                  <div className="text-sm mb-3">Enter some data about your product</div>
+                  <div className="mb-5">
+                    <select className="form-select text-black" name="brand" defaultValue={'DEFAULT'} value={brand} onChange={handleBrandChange}>
+                      <option value="DEFAULT" >Select Brand</option>
+                      {
+                        allProdData && allProdData.map((item, index) => {
+                          return (
+                            <option key={index} value={item.name}>{item.name}</option>
+                          )
+                        })
+                      }
+                    </select>
+                  </div>
+                  {selectedBrandData && (
                     <div className="mb-5">
-                      <select className="form-select text-black" name="brand" defaultValue={'DEFAULT'} value={brand} onChange={handleBrandChange}>
-                        <option value="DEFAULT" disabled>Select Brand</option>
-                        {
-                          allProdData && allProdData.map((item, index) => {
-                            return (
-                              <option key={index} value={item.name}>{item.name}</option>
-                            )
-                          })
-                        }
+                      <select className="form-select text-black" defaultValue={'DEFAULT'} name="productType" value={category} onChange={handleCategoryChange}>
+                        <option value="DEFAULT" >Select Category</option>
+                        {selectedBrandData.categories.map((item, index) => (
+                          <option key={index} value={item.name}>
+                            {item.name}
+                          </option>
+                        ))}
                       </select>
                     </div>
-                    {selectedBrandData && (
-                      <div className="mb-5">
-                        <select className="form-select text-black" defaultValue={'DEFAULT'} name="productType" value={category} onChange={handleCategoryChange}>
-                          <option value="DEFAULT" >Select Category</option>
-                          {selectedBrandData.categories.map((item, index) => (
-                            <option key={index} value={item.name}>
-                              {item.name}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    )}
-                    {selectedCategData && (
-                      <div className="mb-5">
-                        <select className="form-select text-black" defaultValue={'DEFAULT'} name="productname" value={model} onChange={handleModelChange}>
-                          <option value="DEFAULT" >Select Model</option>
-                          {selectedCategData.category.map((item, index) => (
-                            <option key={index} value={item.name}>
-                              {item.name}
-                            </option>
-                          ))}
-                        </select>
-                      </div>
-                    )}
-
+                  )}
+                  {selectedCategData && (
                     <div className="mb-5">
-                      <select className="form-select text-black"  defaultValue={'DEFAULT'} name="warranty" required onChange={(e) => setserviceInp({ ...serviceInp, warranty: e.target.value })}>
-                        <option value="DEFAULT" >Select warranty type</option>
-                        <option value="Under warranty">Under warranty</option>
-                        <option value="Extended warranty">Extended warranty</option>
-                        <option value="Out of warranty">Out of warranty</option>
+                      <select className="form-select text-black" defaultValue={'DEFAULT'} name="productname" value={model} onChange={handleModelChange}>
+                        <option value="DEFAULT" >Select Model</option>
+                        {selectedCategData.category.map((item, index) => (
+                          <option key={index} value={item.name}>
+                            {item.name}
+                          </option>
+                        ))}
                       </select>
                     </div>
+                  )}
 
-                    <div className="mb-5">
-                      <select className="form-select text-black" defaultValue={'DEFAULT'} name="purchaseMode" required onChange={(e) => setserviceInp({ ...serviceInp, purchaseMode: e.target.value })}>
-                        <option value="DEFAULT">Select Purchase Mode</option>
-                        <option value="Online Purchase">Online Purchase</option>
-                        <option value="Offline Purchase">Offline Purchase</option>
-                      </select>
-                    </div>
-
-                    <div className="mb-5">
-                      <input type="text" className="form-control" placeholder='Purchase Date' name='purchase_date' required onChange={(e) => setserviceInp({ ...serviceInp, purchase_date: e.target.value })} />
-                    </div>
-
-                    <div className="mb-5">
-                      <input type="text" className="form-control" placeholder='Product Serial No' name='set_serialno' required onChange={(e) => setserviceInp({ ...serviceInp, set_serialno: e.target.value })} />
-                    </div>
-
-                    <div className="mb-5">
-                      <input type="text" className="form-control" placeholder='Query' name='query' required onChange={(e) => setserviceInp({ ...serviceInp, query: e.target.value })} />
-                    </div>
-
+                  <div className="mb-5">
+                    <select className="form-select text-black" defaultValue={'DEFAULT'} name="warranty" required onChange={(e) => setserviceInp({ ...serviceInp, warranty: e.target.value })}>
+                      <option value="DEFAULT" >Select warranty type</option>
+                      <option value="Under warranty">Under warranty</option>
+                      <option value="Extended warranty">Extended warranty</option>
+                      <option value="Out of warranty">Out of warranty</option>
+                    </select>
                   </div>
 
-
-                  <div className="p-3">
-                    <div className="text-sm mb-3">Enter some personal data</div>
-
-                    <div className="mb-5">
-                      <input type="text" className="form-control" placeholder='First Name' name='firstname' required onChange={(e) => setserviceInp({ ...serviceInp, firstname: e.target.value })} />
-                    </div>
-                    <div className="mb-5">
-                      <input type="text" className="form-control" placeholder='Last Name' name='lastname' required onChange={(e) => setserviceInp({ ...serviceInp, lastname: e.target.value })} />
-                    </div>
-
-                    <div className="mb-5">
-                      <input type="number" className="form-control" placeholder='Mobile No' name='mobile' required onChange={(e) => setserviceInp({ ...serviceInp, mobile: e.target.value })} />
-                    </div>
-                    <div className="mb-5">
-                      <input type="number" className="form-control" placeholder='Alternate Mobile' name='altmobile' required onChange={(e) => setserviceInp({ ...serviceInp, altmobile: e.target.value })} />
-                    </div>
-
-                    <div className="mb-5">
-                      <input type="email" className="form-control" placeholder='Email' name='email' required onChange={(e) => setserviceInp({ ...serviceInp, email: e.target.value })} />
-                    </div>
-
-                    <div className="mb-5">
-                      <input type="text" className="form-control" placeholder='Address' name='address' required onChange={(e) => setserviceInp({ ...serviceInp, address: e.target.value })} />
-                    </div>
-
-                    <div className="mb-5">
-                      <input type="text" className="form-control" placeholder='City' name='city' required onChange={(e) => setserviceInp({ ...serviceInp, city: e.target.value })} />
-                    </div>
-
-                    <div className="mb-5">
-                      <input type="text" className="form-control" placeholder='State' name='state' required onChange={(e) => setserviceInp({ ...serviceInp, state: e.target.value })} />
-                    </div>
-
-                    <div className="mb-5">
-                      <input type="number" className="form-control" placeholder='Pincode' name='pincode' required onChange={(e) => setserviceInp({ ...serviceInp, pincode: e.target.value })} />
-                    </div>
-
-                    <div>
-                      <button className="btn-primary">Submit & Upload Invoice</button>
-                    </div>
+                  <div className="mb-5">
+                    <select className="form-select text-black" defaultValue={'DEFAULT'} name="purchaseMode" required onChange={(e) => setserviceInp({ ...serviceInp, purchaseMode: e.target.value })}>
+                      <option value="DEFAULT">Select Purchase Mode</option>
+                      <option value="Online Purchase">Online Purchase</option>
+                      <option value="Offline Purchase">Offline Purchase</option>
+                    </select>
                   </div>
 
+                  <div className="mb-5">
+                    <input type="text" className="form-control" placeholder='Purchase Date' name='purchase_date' required onChange={(e) => setserviceInp({ ...serviceInp, purchase_date: e.target.value })} />
+                  </div>
+
+                  <div className="mb-5">
+                    <input type="text" className="form-control" placeholder='Product Serial No' name='set_serialno' required onChange={(e) => setserviceInp({ ...serviceInp, set_serialno: e.target.value })} />
+                  </div>
+
+                  <div className="mb-5">
+                    <input type="text" className="form-control" placeholder='Query' name='query' required onChange={(e) => setserviceInp({ ...serviceInp, query: e.target.value })} />
+                  </div>
+
+                </div>
+
+
+                <div className="p-3">
+                  <div className="text-sm mb-3">Enter some personal data</div>
+
+                  <div className="mb-5">
+                    <input type="text" className="form-control" placeholder='First Name' name='firstname' required onChange={(e) => setserviceInp({ ...serviceInp, firstname: e.target.value })} />
+                  </div>
+                  <div className="mb-5">
+                    <input type="text" className="form-control" placeholder='Last Name' name='lastname' required onChange={(e) => setserviceInp({ ...serviceInp, lastname: e.target.value })} />
+                  </div>
+
+                  <div className="mb-5">
+                    <input type="number" className="form-control" placeholder='Mobile No' name='mobile' required onChange={(e) => setserviceInp({ ...serviceInp, mobile: e.target.value })} />
+                  </div>
+                  <div className="mb-5">
+                    <input type="number" className="form-control" placeholder='Alternate Mobile' name='altmobile' required onChange={(e) => setserviceInp({ ...serviceInp, altmobile: e.target.value })} />
+                  </div>
+
+                  <div className="mb-5">
+                    <input type="email" className="form-control" placeholder='Email' name='email' required onChange={(e) => setserviceInp({ ...serviceInp, email: e.target.value })} />
+                  </div>
+
+                  <div className="mb-5">
+                    <input type="text" className="form-control" placeholder='Address' name='address' required onChange={(e) => setserviceInp({ ...serviceInp, address: e.target.value })} />
+                  </div>
+
+                  <div className="mb-5">
+                    <input type="text" className="form-control" placeholder='City' name='city' required onChange={(e) => setserviceInp({ ...serviceInp, city: e.target.value })} />
+                  </div>
+
+                  <div className="mb-5">
+                    <input type="text" className="form-control" placeholder='State' name='state' required onChange={(e) => setserviceInp({ ...serviceInp, state: e.target.value })} />
+                  </div>
+
+                  <div className="mb-5">
+                    <input type="number" className="form-control" placeholder='Pincode' name='pincode' required onChange={(e) => setserviceInp({ ...serviceInp, pincode: e.target.value })} />
+                  </div>
+
+                  <div>
+                    <button className="btn-primary">Submit & Upload Invoice</button>
+                  </div>
+                </div>
+
+
+              </form>
+          }
+
+
+          {
+            imgUpload ?
+              <>
+                <form onSubmit={onInvoiceSubmit} className="md:w-[50%] w-full mx-auto" encType="multipart/form-data" >
+                  <div className="mb-3 form-file-upload">
+                    <label htmlFor="invoice" className="form-label">Invoice</label>
+                    <input type="file" id="invoice" className='form-file' name="invoice" onChange={(e) => {
+                      if (e.target.files && e.target.files.length > 0) {
+                        setinvoice(e.target.files[0]);
+                      }
+                    }} />
+                  </div>
+                  <button className="btn-primary">Upload Invoice</button>
 
                 </form>
-            }
 
+                <form onSubmit={onWarrantySubmit} className="md:w-[50%] w-full mx-auto" encType="multipart/form-data" >
+                  <div className="mb-3">
+                    <label htmlFor="under_warranty" className="form-label">Warranty</label>
+                    <input type="file" id="under_warranty" name="under_warranty" onChange={(e) => {
+                      if (e.target.files && e.target.files.length > 0) {
+                        setwarranty(e.target.files[0]);
+                      }
+                    }} />
+                  </div>
 
-            {
-              imgUpload ?
-                <>
-                  <form onSubmit={onInvoiceSubmit} className="md:w-[50%] w-full mx-auto" encType="multipart/form-data" >
-                    <div className="mb-3 form-file-upload">
-                      <label htmlFor="invoice" className="form-label">Invoice</label>
-                      <input type="file" id="invoice" className='form-file' name="invoice" onChange={(e) => {
-                        if (e.target.files && e.target.files.length > 0) {
-                          setinvoice(e.target.files[0]);
-                        }
-                      }} />
-                    </div>
-                    <button className="btn-primary">Upload Invoice</button>
+                  <button className="btn-primary">Upload Warranty</button>
+                </form>
 
-                  </form>
+                <form onSubmit={onIssueImgSubmit} className="md:w-[50%] w-full mx-auto" encType="multipart/form-data" >
+                  <div className="mb-3">
+                    <label htmlFor="issue_image" className="form-label">Issue Image  (Max upto 4 images)</label>
+                    <input type="file" id="issue_image" multiple name="issue_image" onChange={(e) => {
+                      if (e.target.files && e.target.files.length > 0) {
+                        setissueImg(e.target.files);
+                      }
+                    }} />
+                  </div>
 
-                  <form onSubmit={onWarrantySubmit} className="md:w-[50%] w-full mx-auto" encType="multipart/form-data" >
-                    <div className="mb-3">
-                      <label htmlFor="under_warranty" className="form-label">Warranty</label>
-                      <input type="file" id="under_warranty" name="under_warranty" onChange={(e) => {
-                        if (e.target.files && e.target.files.length > 0) {
-                          setwarranty(e.target.files[0]);
-                        }
-                      }} />
-                    </div>
-
-                    <button className="btn-primary">Upload Warranty</button>
-                  </form>
-
-                  <form onSubmit={onIssueImgSubmit} className="md:w-[50%] w-full mx-auto" encType="multipart/form-data" >
-                    <div className="mb-3">
-                      <label htmlFor="issue_image" className="form-label">Issue Image  (Max upto 4 images)</label>
-                      <input type="file" id="issue_image" multiple name="issue_image" onChange={(e) => {
-                        if (e.target.files && e.target.files.length > 0) {
-                          setissueImg(e.target.files);
-                        }
-                      }} />
-                    </div>
-
-                    <button className="btn-primary">Upload Issue Image</button>
-                  </form>
-                </>
-                : null
-            }
-          </div>
+                  <button className="btn-primary">Upload Issue Image</button>
+                </form>
+              </>
+              : null
+          }
+        </div>
       </div>
 
       <Thankyou invoicety={invoicety} warrty={warrty} issueimgty={issueimgty} />
